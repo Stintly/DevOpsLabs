@@ -56,7 +56,6 @@ def save_inventory(total, history):
 
 def main():
     total_inventory, delivery_history = load_inventory()
-    deliveries_count = len(delivery_history)
     failed_attempts = 0
 
     while True:
@@ -67,25 +66,19 @@ def main():
             break
 
         total_inventory = process_delivery(total_inventory, value)
+        delivery_history.append(value)
         tax = calculate_tax(value)
-        deliveries_count += 1
 
         print(f"Delivery recorded: {value} units | Tax on this delivery: {tax:.2f} | Running total: {total_inventory}")
-
 
         if total_inventory > 500:
             print(f"ALERT: Overstock! Total inventory ({total_inventory}) exceeds 500 units.")
             break
-
         elif total_inventory == 500:
             print("Notice: Inventory has reached exactly 500 units.")
-            
-        else:
-            print(f"Current total inventory: {total_inventory}")
 
-        
-        
-    generate_report(deliveries_count, failed_attempts)
+    save_inventory(total_inventory, delivery_history)
+    generate_report(len(delivery_history), failed_attempts)
 
 
 if __name__ == "__main__":
