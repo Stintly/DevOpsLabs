@@ -29,6 +29,22 @@ def generate_report(total_units, failed_attempts):
     print(f"Total Deliveries Processed: {total_units}")
     print(f"Number of Failed/Rejected Entries: {failed_attempts}")
 
+def load_inventory():
+    try:
+        with open("inventory.txt", "r") as file:
+            lines = file.readlines()
+            total_line = lines[0].strip()
+            history_line = lines[1].strip()
+            
+            total = int(total_line.replace("total:", ""))
+            
+            history_text = history_line.replace("history:", "")
+            history = [int(x) for x in history_text.split(",")]
+            
+        return total, history
+    except (FileNotFoundError, IndexError, ValueError):
+        return 0, []
+
 
 def save_inventory(total, history):
     with open("inventory.txt", "w") as file:
@@ -39,8 +55,8 @@ def save_inventory(total, history):
 
 
 def main():
-    total_inventory = 0
-    deliveries_count = 0
+    total_inventory, delivery_history = load_inventory()
+    deliveries_count = len(delivery_history)
     failed_attempts = 0
 
     while True:
