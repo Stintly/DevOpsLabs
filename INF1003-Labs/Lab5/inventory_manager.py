@@ -82,3 +82,45 @@ def search_product(inventory):
         print(f"Price: ${product['price']:.2f}")
         print(f"Stock: {product['stock']}")
         print("------------------------------------------------")
+
+def main():
+    print("=" * 40)
+    print("INVENTORY MANAGEMENT SYSTEM")
+    print("=" * 40)
+
+    inventory = load_inventory()
+
+    while True:
+        print("----------- MENU -----------")
+        print("1. Display All Products")
+        print("2. Add Product")
+        print("3. Update Stock")
+        print("4. Search Product")
+        print("5. Save Inventory")
+        print("6. Exit")
+        print("----------------------------")
+        choice = input("Enter option: ")
+
+        if choice == "1":
+            display_all(inventory)
+        elif choice == "2":
+            add_product(inventory)
+        elif choice == "3":
+            update_stock(inventory)
+        elif choice == "4":
+            search_product(inventory)
+        elif choice == "5":
+            print("Saving inventory...")
+            save_inventory(inventory)
+        elif choice == "6":
+            print("Saving inventory before exit...")
+            save_inventory(inventory)
+            print("Thank you for using Inventory Management System.")
+            print("Program terminated.")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
