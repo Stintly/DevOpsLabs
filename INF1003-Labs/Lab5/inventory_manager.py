@@ -59,3 +59,26 @@ def update_stock(inventory):
         product["stock"] = new_stock
         print("Stock updated successfully!")
 
+def display_all(inventory):
+    print("Current Inventory")
+    print("------------------------------------------------")
+    for product in inventory:
+        print(f"ID: {product['id']} | Name: {product['name']} | Price: ${product['price']:.2f} | Stock: {product['stock']}")
+    print("------------------------------------------------")
+
+
+def search_product(inventory):
+    print("Search Product")
+    product_id = input("Enter Product ID: ")
+    product = find_product(inventory, product_id)
+
+    if product is None:
+        print("Product not found.")
+    else:
+        print("Product Found")
+        print("------------------------------------------------")
+        print(f"ID: {product['id']}")
+        print(f"Name: {product['name']}")
+        print(f"Price: ${product['price']:.2f}")
+        print(f"Stock: {product['stock']}")
+        print("------------------------------------------------")
